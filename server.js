@@ -17,8 +17,7 @@ const URL =
 const RECIPIENTS = ["fran_enriquez@yahoo.com"];
 
 function repeatThis() {
-  checkStock(URL).then(result => {
-		log.push('test')
+  checkStock(URL, function(result) {
 		var timestamp = moment().format("MMM DD YYYY, h:mm:ss a");
     if (result === true) {
       log.push(`${timestamp}: Lulus are in stock! - ${URL}`);
@@ -43,7 +42,7 @@ function repeatThis() {
     if (log.length > 100) {
       log.shift();
     }
-  });
+	}) 
 }
 
 app.get("/", (request, response) => {

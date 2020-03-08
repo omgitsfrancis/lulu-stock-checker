@@ -7,7 +7,7 @@ const cookieJar = new tough.CookieJar();
 axiosCookieJarSupport(axios);
 
 
-async function checkStock(URL) {
+async function checkStock(URL, callback) {
   const html = await axios.get(URL, {
     jar: cookieJar, // tough.CookieJar or boolean
     withCredentials: true // If true, send cookie stored in jar
@@ -18,13 +18,13 @@ async function checkStock(URL) {
 
   if(!URL.includes('?color') || !URL.includes('&sz') || !URL.includes('shop.lululemon')){
     console.log(`${timestamp}: ERROR - Check URL - URL must contain color and sz`)
-    return null;
+    callback(null);
   } else if ($(errorSelector).length > 0) {
     console.log(`${timestamp}: ${$(errorSelector).text()}`)
-    return false;
+    callback(false);
   } else {
     console.log(`${timestamp}: In Stock - ${URL}`)
-    return true;
+    callback(true);
   }
 }
 
