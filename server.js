@@ -12,7 +12,7 @@ var log = [];
 
 /** URL for lulu need COLOR and SIZE **/
 const URL =
-  "https://shop.lululemon.com/p/women-pants/Align-Pant-2/_/prod2020012?color=43635&sz=4";
+  "https://shop.lululemon.com/p/women-pants/Align-Pant-2/_/prod2020012?coor=43635&sz=4";
 
 const RECIPIENTS = ["fran_enriquez@yahoo.com"];
 
