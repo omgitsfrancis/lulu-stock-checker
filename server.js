@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const log = [];
+var log = [];
 
 /** URL for lulu need COLOR and SIZE **/
 const URL =
