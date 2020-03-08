@@ -45,14 +45,6 @@ function repeatThis() {
   });
 }
 
-repeatThis(); // Execute first once
-
-if (process.env.NODE_ENV === "production") {
-  setInterval(repeatThis, 1000 * 60 * 30); // Execute every 30 mins
-} else {
-  setInterval(repeatThis, 1000 * 5); // 5 secs
-}
-
 app.get("/", (request, response) => {
   response.send(
     log
@@ -65,5 +57,12 @@ app.get("/", (request, response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Express running on localhost:${PORT}`);
+	console.log(`Express running on localhost:${PORT}`);
+	repeatThis(); // Execute first once
+
+	if (process.env.NODE_ENV === "production") {
+		setInterval(repeatThis, 1000 * 60 * 30); // Execute every 30 mins
+	} else {
+		setInterval(repeatThis, 1000 * 5); // 5 secs
+}
 });
