@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const PORT = process.env.NODE_ENV === 'production' ? 8080 : 3000
+const PORT = process.env.PORT || 3000;
 const log = [];
 
 /** URL for lulu need COLOR and SIZE **/
