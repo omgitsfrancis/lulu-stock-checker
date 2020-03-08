@@ -17,6 +17,7 @@ const URL =
 const RECIPIENTS = ["fran_enriquez@yahoo.com"];
 
 function repeatThis() {
+	console.log("does this work?")
   checkStock(URL).then(result => {
 		var timestamp = moment().format("MMM DD YYYY, h:mm:ss a");
     if (result === true) {
