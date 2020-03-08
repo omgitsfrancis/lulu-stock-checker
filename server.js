@@ -7,19 +7,18 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.NODE_ENV === 'production' ? 80 : 3000
 const log = [];
 
 /** URL for lulu need COLOR and SIZE **/
 const URL =
   "https://shop.lululemon.com/p/women-pants/Align-Pant-2/_/prod2020012?color=43635&sz=4";
-const RECIPIENTS = ["fran_enriquez@yahoo.com"];
 
-var timestamp = moment().format("MMM DD YYYY, h:mm:ss a");
+const RECIPIENTS = ["fran_enriquez@yahoo.com"];
 
 function repeatThis() {
   checkStock(URL).then(result => {
-    timestamp = moment().format("MMM DD YYYY, h:mm:ss a");
+		var timestamp = moment().format("MMM DD YYYY, h:mm:ss a");
     if (result === true) {
       log.push(`${timestamp}: Lulus are in stock! - ${URL}`);
       sendMail(
