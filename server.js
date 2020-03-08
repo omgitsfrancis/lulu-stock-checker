@@ -56,6 +56,11 @@ app.get("/", (request, response) => {
   );
 });
 
+app.get("/check", (request, response) => {
+	repeatThis();
+  response.send("Task completed");
+});
+
 app.listen(PORT, () => {
 	console.log(`Express running on localhost:${PORT}`);
 	repeatThis(); // Execute first once
