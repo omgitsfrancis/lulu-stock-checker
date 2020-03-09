@@ -10,12 +10,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 var log = [];
 
-/** URL for lulu need COLOR and SIZE **/
+/* URL for lulu product needs COLOR and SIZE */
 const URL =
   "https://shop.lululemon.com/p/women-pants/Align-Pant-2/_/prod2020012?color=43635&sz=4";
 
-const RECIPIENTS = ["fran_enriquez@yahoo.com"];
+/* Emails to be notified */
+const RECIPIENTS = ["fran_enriquez@yahoo.com", "watt_kristy@yahoo.com"];
 
+/* Main task that is called */
 function repeatThis() {
   checkStock(URL, function(result) {
 		var timestamp = moment().format("MMM DD YYYY, h:mm:ss a");
@@ -37,12 +39,14 @@ function repeatThis() {
       log.push(`${timestamp}: Lulus are not in stock`);
     }
 
+		/* Only keeps last 100 task executions in log */
     if (log.length > 100) {
       log.shift();
     }
 	}) 
 }
 
+/* Root address displays log */
 app.get("/", (request, response) => {
   response.send(
     log
@@ -54,6 +58,7 @@ app.get("/", (request, response) => {
   );
 });
 
+/* Manual task execution */
 app.get("/check", (request, response) => {
 	repeatThis();
   response.send("Task completed");
@@ -63,6 +68,7 @@ app.listen(PORT, () => {
 	console.log(`Express running on localhost:${PORT}`);
 	repeatThis(); // Execute first once
 
+	
 	if (process.env.NODE_ENV === "production") {
 		setInterval(repeatThis, 1000 * 60 * 30); // Execute every 30 mins
 	} else {

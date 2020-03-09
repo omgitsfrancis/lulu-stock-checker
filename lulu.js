@@ -13,7 +13,7 @@ async function checkStock(URL, callback) {
     withCredentials: true // If true, send cookie stored in jar
   });
   const $ = await cheerio.load(html.data)
-  const errorSelector = "#purchase-attributes-size-notification-error";
+  const errorSelector = "#purchase-attributes-size-notification-error"; // Sold out error
   const timestamp = moment().format('MMM DD YYYY, h:mm:ss a');
 
   if(!URL.includes('?color') || !URL.includes('&sz') || !URL.includes('shop.lululemon')){
