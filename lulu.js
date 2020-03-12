@@ -13,17 +13,20 @@ async function checkStock(URL, callback) {
     withCredentials: true // If true, send cookie stored in jar
   });
   const $ = await cheerio.load(html.data)
-  const errorSelector = "#purchase-attributes-size-notification-error"; // Sold out error
+  const addToBagButtonSelector = "button.add-to-bag";
   const timestamp = moment().format('MMM DD YYYY, h:mm:ss a');
 
   if(!URL.includes('?color') || !URL.includes('&sz') || !URL.includes('shop.lululemon')){
     console.log(`${timestamp}: ERROR - Check URL - URL must contain color and sz`)
     callback(null);
-  } else if ($(errorSelector).length > 0) {
-    console.log(`${timestamp}: ${$(errorSelector).text()}`)
+  } else if ($(addToBagButtonSelector).length === 0) {
+    console.log(`${timestamp}: ERROR - Check URL - Cannot find add to bag button`)
+    callback(null);
+  } else if ($(addToBagButtonSelector).prop('disabled')){
+    console.log(`${timestamp}: Out of stock`)
     callback(false);
-  } else {
-    console.log(`${timestamp}: In Stock - ${URL}`)
+  } else if (!$(addToBagButtonSelector).prop('disabled')) {
+    console.log(`${timestamp}: Lulus In Stock!: ${URL}`)
     callback(true);
   }
 }
